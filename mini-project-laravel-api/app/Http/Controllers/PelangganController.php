@@ -116,7 +116,6 @@ class PelangganController extends Controller
             ], 422);
 
         } catch (\Exception $e) {
-            // Log the error for internal checking
             Log::error('Error creating pelanggan: '.$e->getMessage());
 
             return response()->json([

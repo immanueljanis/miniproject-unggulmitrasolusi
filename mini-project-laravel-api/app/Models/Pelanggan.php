@@ -35,7 +35,6 @@ class Pelanggan extends Model
                 $model->id = (string) Str::uuid();
             }
 
-            // Generate id_pelanggan format "PELANGGAN_xxx"
             $lastNumber = self::count() + 1;
             $model->id_pelanggan = 'PELANGGAN_' . $lastNumber;
         });

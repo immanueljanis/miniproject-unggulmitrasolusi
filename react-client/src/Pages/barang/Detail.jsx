@@ -47,7 +47,6 @@ export default function DetailBarang() {
             </div>
         );
     }
-    console.log(barang)
 
     return (
         <div className="p-6">

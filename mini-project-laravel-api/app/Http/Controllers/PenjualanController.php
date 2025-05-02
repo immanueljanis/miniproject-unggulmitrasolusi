@@ -18,7 +18,7 @@ class PenjualanController extends Controller
             'tgl' => 'sometimes|date',
             'id_pelanggan' => 'sometimes|string',
             'pelanggan_nama' => 'sometimes|string',
-            'sort_by' => 'sometimes|in:id,tgl,kode_pelanggan,subtotal,pelanggan_nama,created_at',
+            'sort_by' => 'sometimes|in:id_nota,tgl,kode_pelanggan,subtotal,pelanggan_nama,created_at',
             'sort_dir' => 'sometimes|in:asc,desc',
             'per_page' => 'sometimes|integer|min:1|max:100'
         ]);
