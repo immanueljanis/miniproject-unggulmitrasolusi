@@ -221,23 +221,25 @@ export default function KategoriScreen() {
                         <View style={styles.itemContent}>
                             <ThemedText style={styles.number}>{(page - 1) * 5 + index + 1}.</ThemedText>
                             <ThemedText style={styles.itemName}>{item.nama}</ThemedText>
-                            <View style={styles.actionButtons}>
-                                <Pressable
-                                    style={styles.iconButton}
-                                    onPress={() => handleViewDetail(item)}>
-                                    <MaterialCommunityIcons name="eye" size={20} color="blue" />
-                                </Pressable>
-                                <Pressable
-                                    style={styles.iconButton}
-                                    onPress={() => handleEdit(item)}>
-                                    <MaterialCommunityIcons name="pencil" size={20} color="black" />
-                                </Pressable>
-                                <Pressable
-                                    style={styles.iconButton}
-                                    onPress={() => handleDelete(item.id)}>
-                                    <MaterialCommunityIcons name="delete" size={20} color="red" />
-                                </Pressable>
-                            </View>
+                            {item.active && (
+                                <View style={styles.actionButtons}>
+                                    <Pressable
+                                        style={styles.iconButton}
+                                        onPress={() => handleViewDetail(item)}>
+                                        <MaterialCommunityIcons name="eye" size={20} color="blue" />
+                                    </Pressable>
+                                    <Pressable
+                                        style={styles.iconButton}
+                                        onPress={() => handleEdit(item)}>
+                                        <MaterialCommunityIcons name="pencil" size={20} color="black" />
+                                    </Pressable>
+                                    <Pressable
+                                        style={styles.iconButton}
+                                        onPress={() => handleDelete(item.id)}>
+                                        <MaterialCommunityIcons name="delete" size={20} color="red" />
+                                    </Pressable>
+                                </View>
+                            )}
                         </View>
                     </View>
                 ))}

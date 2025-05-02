@@ -12,12 +12,12 @@ class KategoriController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'sometimes|string|max:255',
-            'sort_by' => 'sometimes|in:id,nama,created_at',
+            'sort_by' => 'sometimes|in:id,nama,created_at,active',
             'sort_dir' => 'sometimes|in:asc,desc',
             'per_page' => 'sometimes|integer|min:1|max:100'
         ]);
 
-        $query = Kategori::where('active', 1)->select(['id', 'nama', 'active']);
+        $query = Kategori::select(['id', 'nama', 'active']);
 
         if ($request->filled('nama')) {
             $query->where('nama', 'like', '%' . $request->nama . '%');
@@ -52,7 +52,7 @@ class KategoriController extends Controller
 
     public function show($id)
     {
-        $kategori = Kategori::where('active', 1)->select(['id', 'nama', 'active'])->find($id);
+        $kategori = Kategori::select(['id', 'nama', 'active'])->find($id);
 
         return response()->json([
             'status' => $kategori ? 'success' : 'error',

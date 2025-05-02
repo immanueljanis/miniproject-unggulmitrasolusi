@@ -5,7 +5,8 @@ import axios from 'axios';
 import useDebounce from '../../hooks/useDebounce';
 import CreateButton from "../../components/Barang/CreateButton";
 import DeleteConfirm from '../../components/DeleteConfirm';
-import EditBarangPopup from '../../components/Barang/EditBarangPopUp';
+import EditBarangPopup from '../../components/Barang/EditBarangPopup';
+import { APP_API_URL } from '../../env';
 
 export default function Barang() {
     const [data, setData] = useState([]);
@@ -32,7 +33,7 @@ export default function Barang() {
     const fetchKategoriOptions = async () => {
         try {
             setLoadingKategori(true);
-            const res = await axios.get('http://127.0.0.1:8000/api/kategori', {
+            const res = await axios.get(`${APP_API_URL}/kategori`, {
                 params: {
                     per_page: 100, // Get all categories
                     sort_by: 'nama',
@@ -64,7 +65,7 @@ export default function Barang() {
                 }
             });
 
-            const res = await axios.get('http://127.0.0.1:8000/api/barang', { params });
+            const res = await axios.get(`${APP_API_URL}/barang`, { params });
             setData(res.data.data);
             setMeta(res.data.meta);
 
@@ -118,13 +119,23 @@ export default function Barang() {
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8000/api/barang/${selectedBarang.id}`);
+            const response = await axios.delete(`${APP_API_URL}/barang/${selectedBarang.id}`);
             showToast(response?.data?.message, 'success');
             fetchData();
         } catch (err) {
             showToast(err?.response?.data?.message, 'error');
         } finally {
             setShowDeleteModal(false);
+        }
+    };
+
+    const handleEditClick = async (id) => {
+        try {
+            const response = await axios.get(`${APP_API_URL}/barang/${id}`);
+            setEditingBarang(response?.data?.data);
+        } catch (err) {
+            console.error("Failed to fetch barang detail:", err);
+            showToast("Gagal mengambil data barang", "error");
         }
     };
 
@@ -235,7 +246,7 @@ export default function Barang() {
                                 <td className="p-2 text-center">
                                     <TableActionButtons
                                         onDetail={'/barang/' + item.id}
-                                        onEdit={() => setEditingBarang(item)}
+                                        onEdit={() => handleEditClick(item.id)}
                                         onDelete={() => {
                                             setSelectedBarang(item);
                                             setShowDeleteModal(true);

@@ -34,7 +34,7 @@ class PenjualanController extends Controller
             ])
             ->join('pelanggan', 'penjualan.kode_pelanggan', '=', 'pelanggan.id')
             ->withCount('item_penjualan as total_item')
-            ->where([['penjualan.active', 1], ['pelanggan.id_pelanggan', 'like', '%' . $request->id_pelanggan . '%']]);
+            ->where([['pelanggan.id_pelanggan', 'like', '%' . $request->id_pelanggan . '%']]);
 
         if ($request->filled('tgl')) {
             $query->whereDate('penjualan.tgl', $request->tgl);
@@ -89,11 +89,11 @@ class PenjualanController extends Controller
                 'penjualan.tgl',
                 'pelanggan.id as id_pelanggan',
                 'pelanggan.nama as pelanggan_nama',
+                'pelanggan.id_pelanggan as pelanggan_kode',
                 'penjualan.subtotal'
             )
             ->where([
-                ['penjualan.id', $id],
-                ['penjualan.active', 1]
+                ['penjualan.id', $id]
             ])->first();
         
         if(!$penjualan) {

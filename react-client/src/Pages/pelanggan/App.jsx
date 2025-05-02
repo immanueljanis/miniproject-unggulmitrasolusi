@@ -5,7 +5,8 @@ import axios from 'axios';
 import useDebounce from '../../hooks/useDebounce';
 import CreateButton from "../../components/Pelanggan/CreateButton"
 import DeleteConfirm from '../../components/DeleteConfirm';
-import EditPelangganPopup from '../../components/Pelanggan/EditPelangganPopUp';
+import EditPelangganPopup from '../../components/Pelanggan/EditPelangganPopup';
+import { APP_API_URL } from '../../env';
 
 export default function Pelanggan() {
     const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ export default function Pelanggan() {
                 }
             });
 
-            const res = await axios.get('http://127.0.0.1:8000/api/pelanggan', { params });
+            const res = await axios.get(`${APP_API_URL}/pelanggan`, { params });
             setData(res.data.data);
             setMeta(res.data.meta);
 
@@ -93,7 +94,7 @@ export default function Pelanggan() {
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8000/api/pelanggan/${selectedPelanggan.id}`);
+            const response = await axios.delete(`${APP_API_URL}/pelanggan/${selectedPelanggan.id}`);
             showToast(response?.data?.message, 'success');
             fetchData();
         } catch (err) {

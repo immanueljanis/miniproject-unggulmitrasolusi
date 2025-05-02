@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { APP_API_URL } from "../../env";
 
 export default function DetailBarang() {
     const { id } = useParams();
@@ -13,7 +14,7 @@ export default function DetailBarang() {
     useEffect(() => {
         const fetchDetail = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/barang/${id}`);
+                const res = await axios.get(`${APP_API_URL}/barang/${id}`);
                 setBarang(res.data.data);
             } catch (err) {
                 setError(err?.response?.data?.message);

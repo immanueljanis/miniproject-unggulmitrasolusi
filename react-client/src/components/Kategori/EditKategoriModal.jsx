@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { APP_API_URL } from '../../env';
 
 export default function EditKategoriModal({ data, onClose, refreshData, showToast }) {
     const [nama, setNama] = useState(data.nama || '');
@@ -17,7 +18,7 @@ export default function EditKategoriModal({ data, onClose, refreshData, showToas
 
         try {
             setLoading(true);
-            await axios.put(`http://localhost:8000/api/kategori/${data.id}`, payload);
+            await axios.put(`${APP_API_URL}/kategori/${data.id}`, payload);
             showToast('Kategori berhasil diperbarui');
             onClose();
             refreshData();

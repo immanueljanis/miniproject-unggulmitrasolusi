@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { APP_API_URL } from '../../env';
 
 export default function CreateKategoriButton({ refreshData, showToast }) {
     const [show, setShow] = useState(false);
@@ -20,7 +21,7 @@ export default function CreateKategoriButton({ refreshData, showToast }) {
 
         try {
             setLoading(true);
-            await axios.post('http://localhost:8000/api/kategori', payload);
+            await axios.post(`${APP_API_URL}/kategori`, payload);
             showToast('Kategori berhasil ditambahkan');
             setShow(false);
             setNama('');

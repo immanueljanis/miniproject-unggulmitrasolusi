@@ -71,8 +71,8 @@ class BarangController extends Controller
     public function show($id)
     {
         $barang = Barang::with(['kategori' => function ($q) {
-            $q->select('id', 'nama');
-        }])->where('active', 1)->select([
+            $q->select('id', 'nama', 'active');
+        }])->select([
             'id',
             'kode',
             'nama',

@@ -1,11 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import { APP_API_URL } from "../../env"
 
 export default function EditBarangPopup({ barang, onClose, refreshData, showToast, kategoriOptions }) {
+    const newKategori = [
+        ...kategoriOptions.filter(k => k.id !== barang.kategori.id),
+        barang.kategori
+    ];
+
     const [formData, setFormData] = useState({
         nama: barang.nama || '',
         kategori: barang.kategori?.id || '',
-        harga: barang.harga || 0,
+        harga: barang.harga || 0
     });
 
     const [errors, setErrors] = useState({});
@@ -47,7 +53,7 @@ export default function EditBarangPopup({ barang, onClose, refreshData, showToas
             }
 
             const response = await axios.put(
-                `http://localhost:8000/api/barang/${barang.id}`,
+                `${APP_API_URL}/barang/${barang.id}`,
                 payload
             );
 
@@ -86,9 +92,9 @@ export default function EditBarangPopup({ barang, onClose, refreshData, showToas
                             className="border w-full p-2 rounded"
                         >
                             <option value="">Pilih Kategori</option>
-                            {kategoriOptions.map(kategori => (
+                            {newKategori.map(kategori => (
                                 <option key={kategori.id} value={kategori.id}>
-                                    {kategori.nama}
+                                    {kategori.nama} {!kategori.active && "- Tidak Aktif"}
                                 </option>
                             ))}
                         </select>

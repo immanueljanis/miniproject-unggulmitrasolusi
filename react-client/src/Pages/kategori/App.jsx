@@ -5,6 +5,7 @@ import TableActionButtons from '../../utils/ActionButton';
 import CreateKategoriButton from '../../components/Kategori/CreateKategoriButton';
 import EditKategoriModal from '../../components/Kategori/EditKategoriModal';
 import DeleteConfirm from '../../components/DeleteConfirm';
+import { APP_API_URL } from '../../env';
 
 export default function Kategori() {
     const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ export default function Kategori() {
                 sort_dir: sortDirection,
             };
 
-            const res = await axios.get('http://localhost:8000/api/kategori', { params });
+            const res = await axios.get(`${APP_API_URL}/kategori`, { params });
             setData(res.data.data);
             setMeta(res.data.meta);
         } catch (err) {
@@ -62,7 +63,7 @@ export default function Kategori() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8000/api/kategori/${selectedDelete.id}`);
+            await axios.delete(`${APP_API_URL}/kategori/${selectedDelete.id}`);
             showToast('Kategori berhasil dihapus');
             fetchData();
             setSelectedDelete(null); // Close the modal after delete
@@ -72,7 +73,6 @@ export default function Kategori() {
     };
 
     const toggleSort = (field) => {
-        if (field !== 'nama') return;
 
         if (sortField === field) {
             setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -136,6 +136,9 @@ export default function Kategori() {
                                 <th className="p-2 cursor-pointer" onClick={() => toggleSort('nama')}>
                                     Nama {sortField === 'nama' && (sortDirection === 'asc' ? '↑' : '↓')}
                                 </th>
+                                <th className="p-2 cursor-pointer" onClick={() => toggleSort('active')}>
+                                    Active {sortField === 'active' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                </th>
                                 <th className="p-2">Actions</th>
                             </tr>
                         </thead>
@@ -149,12 +152,15 @@ export default function Kategori() {
                                     <tr key={item.id} className="border-t">
                                         <td className="p-2">{(meta.current_page - 1) * meta.per_page + i + 1}</td>
                                         <td className="p-2">{item.nama}</td>
-                                        <td className="p-2">
-                                            <TableActionButtons
-                                                onEdit={() => setSelectedEdit(item)}
-                                                onDelete={() => setSelectedDelete(item)}
-                                            />
-                                        </td>
+                                        <td className="p-2">{item.active ? "Aktif" : "Tidak aktif"}</td>
+                                        {item.active ? (
+                                            <td className="p-2">
+                                                <TableActionButtons
+                                                    onEdit={() => setSelectedEdit(item)}
+                                                    onDelete={() => setSelectedDelete(item)}
+                                                />
+                                            </td>
+                                        ) : ""}
                                     </tr>
                                 ))
                             )}

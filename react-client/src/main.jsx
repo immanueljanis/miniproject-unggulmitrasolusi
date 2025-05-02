@@ -11,6 +11,7 @@ import Kategori from './Pages/kategori/App.jsx';
 import Barang from './Pages/barang/App.jsx';
 import Penjualan from './Pages/penjualan/App.jsx';
 import DetailBarang from './Pages/barang/Detail.jsx';
+import DetailPenjualan from './Pages/penjualan/Detail.jsx'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'penjualan',
         element: <Penjualan />
+      },
+      {
+        path: 'penjualan/:id',
+        element: < DetailPenjualan />
       }
     ]
   }

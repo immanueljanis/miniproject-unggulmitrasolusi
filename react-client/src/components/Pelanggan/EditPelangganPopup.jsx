@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { APP_API_URL } from "../../env";
 
 export default function EditPelangganPopup({ pelanggan, onClose, refreshData, showToast }) {
     const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ export default function EditPelangganPopup({ pelanggan, onClose, refreshData, sh
                 return;
             }
 
-            const response = await axios.put(`http://localhost:8000/api/pelanggan/${pelanggan.id}`, payload);
+            const response = await axios.put(`${APP_API_URL}/pelanggan/${pelanggan.id}`, payload);
 
             showToast(response?.data?.message);
             refreshData();

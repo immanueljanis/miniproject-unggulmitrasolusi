@@ -5,7 +5,8 @@ import axios from 'axios';
 import useDebounce from '../../hooks/useDebounce';
 import CreateButton from "../../components/Penjualan/CreateButton";
 import DeleteConfirm from '../../components/DeleteConfirm';
-import EditPenjualanPopup from '../../components/Penjualan/EditPenjualanPopUp';
+import EditPenjualanPopup from '../../components/Penjualan/EditPenjualanPopup';
+import { APP_API_URL } from '../../env';
 
 export default function Penjualan() {
     const [data, setData] = useState([]);
@@ -28,13 +29,12 @@ export default function Penjualan() {
     const [loadingOptions, setLoadingOptions] = useState(false);
 
     const debouncedFilters = useDebounce(filters, 500);
-
     const fetchOptions = async () => {
         try {
             setLoadingOptions(true);
             const [pelangganRes, barangRes] = await Promise.all([
-                axios.get('http://127.0.0.1:8000/api/pelanggan', { params: { per_page: 100 } }),
-                axios.get('http://127.0.0.1:8000/api/barang', { params: { per_page: 100 } })
+                axios.get(`${APP_API_URL}/pelanggan`, { params: { per_page: 100 } }),
+                axios.get(`${APP_API_URL}/barang`, { params: { per_page: 100 } })
             ]);
             setPelangganOptions(pelangganRes.data.data);
             setBarangOptions(barangRes.data.data);
@@ -61,7 +61,7 @@ export default function Penjualan() {
                 }
             });
 
-            const res = await axios.get('http://127.0.0.1:8000/api/penjualan', { params });
+            const res = await axios.get(`${APP_API_URL}/penjualan`, { params });
             setData(res.data.data);
             setMeta(res.data.meta);
 
@@ -117,7 +117,7 @@ export default function Penjualan() {
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8000/api/penjualan/${selectedPenjualan.id}`);
+            const response = await axios.delete(`${APP_API_URL}/penjualan/${selectedPenjualan.id}`);
             showToast(response?.data?.message, 'success');
             fetchData();
         } catch (err) {

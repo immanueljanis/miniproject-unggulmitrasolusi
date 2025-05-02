@@ -76,7 +76,7 @@ class PelangganController extends Controller
 
     public function show($id)
     {
-        $pelanggan = Pelanggan::where('active', 1)->select([
+        $pelanggan = Pelanggan::select([
             'id_pelanggan',
             'nama', 
             'domisili',

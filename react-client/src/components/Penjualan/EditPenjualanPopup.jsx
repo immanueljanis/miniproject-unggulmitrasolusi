@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { APP_API_URL } from "../../env";
 
 export default function EditPenjualanPopup({ penjualan, onClose, refreshData, showToast, pelangganOptions, barangOptions }) {
     const [formData, setFormData] = useState({
@@ -7,18 +8,18 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
         kode_pelanggan: '',
         items: []
     });
-    // console.log(formData);
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [loadingPenjualan, setLoadingPenjualan] = useState(false);
+    const [detailPelanggan, setDetailPelanggan] = useState([])
+    console.log(detailPelanggan)
 
-    // Fetch penjualan details when component mounts or penjualan.id changes
     useEffect(() => {
         const fetchPenjualanDetails = async () => {
             try {
                 setLoadingPenjualan(true);
-                const response = await axios.get(`http://127.0.0.1:8000/api/penjualan/${penjualan.id}`);
+                const response = await axios.get(`${APP_API_URL}/penjualan/${penjualan.id}`);
                 const data = response.data.data;
 
                 setFormData({
@@ -29,6 +30,7 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
                         qty: item.qty,
                     }))
                 });
+                setDetailPelanggan([...pelangganOptions, { id: data.id_pelanggan, nama: data.pelanggan_nama, id_pelanggan: data.pelanggan_kode }]);
             } catch (err) {
                 console.error("Error fetching penjualan details", err);
                 showToast("Gagal memuat detail penjualan", "error");
@@ -101,7 +103,7 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
             };
 
             const response = await axios.put(
-                `http://localhost:8000/api/penjualan/${penjualan.id}`,
+                `${APP_API_URL}/penjualan/${penjualan.id}`,
                 payload
             );
 
@@ -152,13 +154,13 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
                                 className="border w-full p-2 rounded"
                             >
                                 <option value="">Pilih Pelanggan</option>
-                                {pelangganOptions?.map(pelanggan => (
+                                {detailPelanggan?.map(pelanggan => (
                                     <option
-                                        key={pelanggan.id}
+                                        key={pelanggan.nama}
                                         value={pelanggan.id}
                                         selected={pelanggan.id === formData.kode_pelanggan}
                                     >
-                                        {pelanggan.nama} ({pelanggan.id_pelanggan})
+                                        {pelanggan.nama} ({pelanggan.id_pelanggan}) {`- ${pelanggan.active ? "Aktif" : "Tidak aktif"}`}
                                     </option>
                                 ))}
                             </select>
@@ -171,7 +173,7 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
                     <div>
                         <label className="block font-medium mb-2">Items Penjualan</label>
                         {formData.items?.map((item, index) => {
-                            const selectedBarang = barangOptions.find(b => b.id === item.barang_id);
+                            // const selectedBarang = barangOptions.find(b => b.id === item.barang_id);
                             return (
                                 <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2 items-end">
                                     <div>

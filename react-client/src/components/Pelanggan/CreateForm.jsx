@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { APP_API_URL } from '../../env';
 
 export default function CreateForm({ closeModal, refreshData, showToast }) {
     const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ export default function CreateForm({ closeModal, refreshData, showToast }) {
 
         try {
             setLoading(true);
-            await axios.post('http://127.0.0.1:8000/api/pelanggan', formData);
+            await axios.post(`${APP_API_URL}/pelanggan`, formData);
             showToast('Pelanggan created successfully', 'success');
             closeModal();
             refreshData(); // ✅ Refresh list

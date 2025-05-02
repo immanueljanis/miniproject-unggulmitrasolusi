@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { APP_API_URL } from '../../env';
 
 export default function CreateForm({ closeModal, refreshData, showToast, pelangganOptions, barangOptions }) {
     const [formData, setFormData] = useState({
@@ -71,7 +72,7 @@ export default function CreateForm({ closeModal, refreshData, showToast, pelangg
 
         try {
             setLoading(true);
-            await axios.post('http://127.0.0.1:8000/api/penjualan', formData);
+            await axios.post(`${APP_API_URL}/penjualan`, formData);
             showToast('Penjualan berhasil ditambahkan', 'success');
             closeModal();
             refreshData();
