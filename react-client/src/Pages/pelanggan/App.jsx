@@ -24,13 +24,13 @@ export default function Pelanggan() {
     const [sort, setSort] = useState({ sort_by: 'created_at', sort_dir: 'desc' });
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(5);
-    const [loading, setLoading] = useState(false); // Loading state
+    const [loading, setLoading] = useState(false);
 
     const debouncedFilters = useDebounce(filters, 500);
 
     const fetchData = async () => {
         try {
-            setLoading(true); // Set loading to true when data is being fetched
+            setLoading(true);
 
             const params = {
                 ...debouncedFilters,
@@ -52,7 +52,7 @@ export default function Pelanggan() {
         } catch (err) {
             console.error("Error fetching data", err);
         } finally {
-            setLoading(false); // Set loading to false when data is fetched or error occurs
+            setLoading(false);
         }
     };
 
@@ -135,7 +135,6 @@ export default function Pelanggan() {
 
             <CreateButton refreshData={fetchData} showToast={showToast} />
 
-            {/* Filters Section */}
             <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-4">
                 <input
                     name="id_pelanggan"
@@ -166,7 +165,6 @@ export default function Pelanggan() {
                 </select>
             </div>
 
-            {/* Loading Indicator */}
             {loading && (
                 <div className="flex justify-center items-center">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-solid border-current border-t-transparent rounded-full" role="status">
@@ -175,7 +173,6 @@ export default function Pelanggan() {
                 </div>
             )}
 
-            {/* Table Section */}
             {!loading && (
                 <table className="w-full table-auto border">
                     <thead>
@@ -217,7 +214,6 @@ export default function Pelanggan() {
                 </table>
             )}
 
-            {/* Dropdown to set per page */}
             <div className="my-4 flex items-center gap-4">
                 <label htmlFor="perPage" className="text-sm">Rows per page:</label>
                 <select
@@ -238,7 +234,6 @@ export default function Pelanggan() {
                 Menampilkan {meta.count} dari total {meta.total} data.
             </div>
 
-            {/* Pagination */}
             <Pagination meta={meta} onPageChange={setPage} />
         </div>
     );

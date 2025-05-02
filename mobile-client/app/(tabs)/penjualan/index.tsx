@@ -165,7 +165,6 @@ export default function PenjualanScreen() {
                 <ThemedText style={styles.createButtonText}>Tambah Penjualan</ThemedText>
             </Pressable>
 
-            {/* Filter Controls */}
             <ThemedView style={styles.filterContainer}>
                 <TextInput
                     style={styles.filterInput}
@@ -206,14 +205,13 @@ export default function PenjualanScreen() {
                             display="default"
                             onChange={handleDateFilterChange}
                             style={styles.dateTimePicker}
-                            textColor="black" // For Android
-                            themeVariant="light" // For iOS
+                            textColor="black"
+                            themeVariant="light"
                         />
                     )}
                 </View>
             </ThemedView>
 
-            {/* Sorting Controls */}
             <ThemedView style={styles.sortContainer}>
                 <Picker
                     selectedValue={sortField}
@@ -243,7 +241,6 @@ export default function PenjualanScreen() {
             {loading && <ActivityIndicator size="large" style={styles.loader} />}
             {error && <ThemedText style={styles.error}>{error}</ThemedText>}
 
-            {/* Penjualan List */}
             <View style={styles.listContainer}>
                 {penjualans.map((item) => (
                     <View key={item.id} style={styles.itemRow}>
@@ -263,14 +260,6 @@ export default function PenjualanScreen() {
                                     style={styles.iconButton}>
                                     <MaterialCommunityIcons name="eye" size={20} color={'blue'} />
                                 </Pressable>
-                                {/* <Pressable
-                                    onPress={() => {
-                                        setDetailVisible(false);
-                                        handleEdit(selectedPenjualan);
-                                    }}
-                                    style={styles.iconButton}>
-                                    <MaterialCommunityIcons name="pencil" size={20} color={'#000000'} />
-                                </Pressable> */}
                                 <Pressable
                                     onPress={() => handleDelete(item.id)}
                                     style={styles.iconButton}>
@@ -302,7 +291,6 @@ export default function PenjualanScreen() {
                 </Pressable>
             </ThemedView>
 
-            {/* Form Modal */}
             <Modal
                 visible={modalVisible}
                 transparent={true}
@@ -352,7 +340,6 @@ export default function PenjualanScreen() {
                 </View>
             </Modal>
 
-            {/* Detail Modal */}
             <Modal
                 visible={detailVisible}
                 transparent={true}

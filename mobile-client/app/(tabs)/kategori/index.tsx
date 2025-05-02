@@ -192,7 +192,6 @@ export default function KategoriScreen() {
                 <ThemedText style={styles.addButtonText}>Tambah Kategori</ThemedText>
             </Pressable>
 
-            {/* Search Input */}
             <TextInput
                 style={styles.searchInput}
                 placeholder="Cari kategori..."
@@ -200,7 +199,6 @@ export default function KategoriScreen() {
                 onChangeText={setSearchTerm}
             />
 
-            {/* Sorting Controls */}
             <ThemedView style={styles.sortContainer}>
                 <Pressable onPress={toggleSortDirection} style={styles.sortButton}>
                     <ThemedText>Sort by Name: {sortDir.toUpperCase()}</ThemedText>
@@ -208,13 +206,10 @@ export default function KategoriScreen() {
                 </Pressable>
             </ThemedView>
 
-            {/* Loading State */}
             {loading && <ActivityIndicator size="large" style={styles.loader} />}
 
-            {/* Error State */}
             {error && <ThemedText style={styles.error}>{error}</ThemedText>}
 
-            {/* Categories List */}
             <View style={styles.listContainer}>
                 {categories.map((item, index) => (
                     <View key={item.id} style={styles.itemRow}>
@@ -282,12 +277,10 @@ export default function KategoriScreen() {
                 </View>
             </Modal>
 
-            {/* Data Summary */}
             <ThemedView style={styles.summaryContainer}>
                 <ThemedText>Showing {fromTo.count} of {fromTo.total} items</ThemedText>
             </ThemedView>
 
-            {/* Pagination Controls */}
             <ThemedView style={styles.pagination}>
                 <Pressable
                     onPress={handlePrevPage}

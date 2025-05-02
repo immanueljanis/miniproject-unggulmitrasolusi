@@ -29,13 +29,12 @@ export default function Barang() {
 
     const debouncedFilters = useDebounce(filters, 500);
 
-    // Fetch Kategori options for dropdown
     const fetchKategoriOptions = async () => {
         try {
             setLoadingKategori(true);
             const res = await axios.get(`${APP_API_URL}/kategori`, {
                 params: {
-                    per_page: 100, // Get all categories
+                    per_page: 100,
                     sort_by: 'nama',
                     sort_dir: 'asc'
                 }

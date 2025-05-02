@@ -177,7 +177,6 @@ export default function BarangScreen() {
                 <ThemedText style={styles.createButtonText}>Tambah Barang</ThemedText>
             </Pressable>
 
-            {/* Filter Controls */}
             <ThemedView style={styles.filterContainer}>
                 <TextInput
                     style={styles.filterInput}
@@ -201,7 +200,6 @@ export default function BarangScreen() {
                 />
             </ThemedView>
 
-            {/* Sorting Controls */}
             <ThemedView style={styles.sortContainer}>
                 <Picker
                     selectedValue={sortField}
@@ -229,7 +227,6 @@ export default function BarangScreen() {
             {loading && <ActivityIndicator size="large" style={styles.loader} />}
             {error && <ThemedText style={styles.error}>{error}</ThemedText>}
 
-            {/* Barang List */}
             <View style={styles.listContainer}>
                 {barangs.map((item, index) => (
                     <View key={item.id} style={styles.itemRow}>
@@ -277,7 +274,6 @@ export default function BarangScreen() {
                 </Pressable>
             </ThemedView>
 
-            {/* Form Modal */}
             <Modal
                 visible={modalVisible}
                 transparent={true}
@@ -294,7 +290,6 @@ export default function BarangScreen() {
                 </View>
             </Modal>
 
-            {/* Detail Modal */}
             <Modal
                 visible={detailVisible}
                 transparent={true}

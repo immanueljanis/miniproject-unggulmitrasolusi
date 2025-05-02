@@ -18,18 +18,16 @@ export default function Kategori() {
     const [selectedEdit, setSelectedEdit] = useState(null);
     const [selectedDelete, setSelectedDelete] = useState(null);
 
-    // ✅ Filter & Sort
     const [filterNama, setFilterNama] = useState('');
     const [debouncedNama, setDebouncedNama] = useState('');
     const [sortField, setSortField] = useState('nama');
     const [sortDirection, setSortDirection] = useState('asc');
 
-    // ⏱️ Debounce filterNama
     useEffect(() => {
         const timeout = setTimeout(() => {
             setDebouncedNama(filterNama);
             setPage(1);
-        }, 500); // debounce 500ms
+        }, 500);
 
         return () => clearTimeout(timeout);
     }, [filterNama]);
@@ -66,7 +64,7 @@ export default function Kategori() {
             await axios.delete(`${APP_API_URL}/kategori/${selectedDelete.id}`);
             showToast('Kategori berhasil dihapus');
             fetchData();
-            setSelectedDelete(null); // Close the modal after delete
+            setSelectedDelete(null);
         } catch {
             showToast('Gagal menghapus kategori', 'error');
         }
@@ -94,13 +92,12 @@ export default function Kategori() {
                 </div>
             )}
 
-            {/* Delete Confirmation Modal */}
             {selectedDelete && (
                 <DeleteConfirm
                     isOpen={selectedDelete !== null}
                     onClose={() => setSelectedDelete(null)}
                     onConfirm={handleDelete}
-                    data={selectedDelete} // Pass the selected data to show in modal
+                    data={selectedDelete}
                 />
             )}
 
@@ -108,7 +105,6 @@ export default function Kategori() {
 
             <CreateKategoriButton refreshData={fetchData} showToast={showToast} />
 
-            {/* ✅ Filter Bar */}
             <div className="my-4">
                 <input
                     type="text"
@@ -120,7 +116,6 @@ export default function Kategori() {
             </div>
 
             <div className="relative">
-                {/* Loading Indicator */}
                 {loading && (
                     <div className="flex justify-center items-center">
                         <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-solid border-current border-t-transparent rounded-full" role="status">

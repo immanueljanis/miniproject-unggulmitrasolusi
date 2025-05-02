@@ -33,7 +33,6 @@ export default function EditPelangganPopup({ pelanggan, onClose, refreshData, sh
 
         setLoading(true);
         try {
-            // Kirim hanya field yang berubah
             const payload = {};
             if (formData.nama !== pelanggan.nama) payload.nama = formData.nama;
             if (formData.domisili !== pelanggan.domisili) payload.domisili = formData.domisili;

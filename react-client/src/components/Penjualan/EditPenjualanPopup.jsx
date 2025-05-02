@@ -23,8 +23,8 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
                 const data = response.data.data;
 
                 setFormData({
-                    tgl: data.tgl.split('T')[0], // Format date for input
-                    kode_pelanggan: data.kode_pelanggan || data.id_pelanggan, // Handle both possible fields
+                    tgl: data.tgl.split('T')[0],
+                    kode_pelanggan: data.kode_pelanggan || data.id_pelanggan,
                     items: data?.item_penjualan?.map(item => ({
                         barang_id: item.barang_id,
                         qty: item.qty,
@@ -173,7 +173,6 @@ export default function EditPenjualanPopup({ penjualan, onClose, refreshData, sh
                     <div>
                         <label className="block font-medium mb-2">Items Penjualan</label>
                         {formData.items?.map((item, index) => {
-                            // const selectedBarang = barangOptions.find(b => b.id === item.barang_id);
                             return (
                                 <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2 items-end">
                                     <div>

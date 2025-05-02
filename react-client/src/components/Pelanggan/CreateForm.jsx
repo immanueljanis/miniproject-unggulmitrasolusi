@@ -42,7 +42,7 @@ export default function CreateForm({ closeModal, refreshData, showToast }) {
             await axios.post(`${APP_API_URL}/pelanggan`, formData);
             showToast('Pelanggan created successfully', 'success');
             closeModal();
-            refreshData(); // ✅ Refresh list
+            refreshData();
         } catch (err) {
             console.error("Error creating pelanggan", err);
             const errorMsg = err.response?.data?.message || 'Error creating pelanggan';

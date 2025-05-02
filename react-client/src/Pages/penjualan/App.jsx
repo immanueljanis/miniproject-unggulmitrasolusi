@@ -164,7 +164,6 @@ export default function Penjualan() {
                 barangOptions={barangOptions}
             />
 
-            {/* Filters Section */}
             <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input
                     name="id_pelanggan"
@@ -186,7 +185,6 @@ export default function Penjualan() {
                 />
             </div>
 
-            {/* Loading Indicators */}
             {loadingOptions && (
                 <div className="text-sm text-gray-500 mb-2">Memuat data pelanggan dan barang...</div>
             )}
@@ -198,7 +196,6 @@ export default function Penjualan() {
                 </div>
             )}
 
-            {/* Table Section */}
             {!loading && (
                 <table className="w-full table-auto border">
                     <thead>
@@ -246,7 +243,6 @@ export default function Penjualan() {
                 </table>
             )}
 
-            {/* Dropdown to set per page */}
             <div className="my-4 flex items-center gap-4">
                 <label htmlFor="perPage" className="text-sm">Rows per page:</label>
                 <select
@@ -267,7 +263,6 @@ export default function Penjualan() {
                 Menampilkan {meta.count} dari total {meta.total} data.
             </div>
 
-            {/* Pagination */}
             <Pagination meta={meta} onPageChange={setPage} />
         </div>
     );

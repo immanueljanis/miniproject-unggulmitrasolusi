@@ -8,7 +8,6 @@ export default function EditKategoriModal({ data, onClose, refreshData, showToas
     const [loading, setLoading] = useState(false);
 
     const handleUpdate = async () => {
-        // Validate the 'nama' field
         if (!nama.trim()) {
             setErrors({ nama: 'Nama tidak boleh kosong' });
             return;
@@ -42,7 +41,7 @@ export default function EditKategoriModal({ data, onClose, refreshData, showToas
                         value={nama}
                         onChange={(e) => {
                             setNama(e.target.value);
-                            setErrors({}); // Clear error when the user types
+                            setErrors({});
                         }}
                         placeholder="Masukkan nama baru"
                     />
